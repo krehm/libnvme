@@ -193,6 +193,9 @@ PyObject *hostid_from_file();
 		case NVMF_TRTYPE_TCP:
 			val = PyUnicode_FromString("tcp");
 			break;
+		case NVMF_TRTYPE_SS:
+			val = PyUnicode_FromString("ss");
+			break;
 		case NVMF_TRTYPE_LOOP:
 			val = PyUnicode_FromString("loop");
 			break;

@@ -11133,6 +11133,9 @@ bytes, in size. This log captures the controller’s internal state.
 ``NVMF_TRTYPE_TCP``
   TCP
 
+``NVMF_TRTYPE_SS``
+  Slingshot
+
 ``NVMF_TRTYPE_LOOP``
   Intra-host Transport (i.e., loopback), reserved
   for host usage.

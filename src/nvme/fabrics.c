@@ -73,6 +73,7 @@ const char * const trtypes[] = {
 	[NVMF_TRTYPE_RDMA]	= "rdma",
 	[NVMF_TRTYPE_FC]	= "fc",
 	[NVMF_TRTYPE_TCP]	= "tcp",
+	[NVMF_TRTYPE_SS]	= "ss",
 	[NVMF_TRTYPE_LOOP]	= "loop",
 };
 
@@ -571,7 +572,8 @@ static bool traddr_is_hostname(nvme_root_t r, nvme_ctrl_t c)
 
 	if (!c->traddr)
 		return false;
-	if (strcmp(c->transport, "tcp") && strcmp(c->transport, "rdma"))
+	if (strcmp(c->transport, "tcp") && strcmp(c->transport, "rdma") &&
+	    strcmp(c->transport, "ss"))
 		return false;
 	if (inet_pton_with_scope(r, AF_UNSPEC, c->traddr, c->trsvcid, &addr) == 0)
 		return false;
@@ -1069,6 +1071,7 @@ nvme_ctrl_t nvmf_connect_disc_entry(nvme_host_t h,
 	switch (e->trtype) {
 	case NVMF_TRTYPE_RDMA:
 	case NVMF_TRTYPE_TCP:
+	case NVMF_TRTYPE_SS:
 		switch (e->adrfam) {
 		case NVMF_ADDR_FAMILY_IP4:
 		case NVMF_ADDR_FAMILY_IP6:

@@ -1405,7 +1405,8 @@ static bool traddr_is_hostname(const char *transport, const char *traddr)
 	if (!strcmp(traddr, "none"))
 		return false;
 	if (strcmp(transport, "tcp") &&
-	    strcmp(transport, "rdma"))
+	    strcmp(transport, "rdma") &&
+	    strcmp(transport, "ss"))
 		return false;
 	if (inet_pton(AF_INET, traddr, addrstr) > 0 ||
 	    inet_pton(AF_INET6, traddr, addrstr) > 0)
@@ -1783,7 +1784,7 @@ static ctrl_match_t _candidate_init(struct candidate_args *candidate,
 		return _tcp_match_ctrl;
 	}
 
-	if (streq0(transport, "rdma")) {
+	if (streq0(transport, "rdma") || streq0(transport, "ss")) {
 		candidate->addreq = nvme_ipaddrs_eq;
 		return _match_ctrl;
 	}
